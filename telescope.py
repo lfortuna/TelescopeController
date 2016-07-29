@@ -53,7 +53,7 @@ class Telescope_Channel(QtCore.QThread, asyncore.dispatcher):
         data0 = self.recv(160);
         if data0:            
             data = ConstBitStream(bytes=data0, length=160)
-            #print "All: %s" % data.bin
+            print "All: %s" % data.bin
  
             msize = data.read('intle:16')
             mtype = data.read('intle:16')
@@ -136,6 +136,7 @@ class Telescope_Server(QtCore.QThread, asyncore.dispatcher):
         self.set_reuse_addr()
         self.bind(('localhost', self.port))
         self.listen(1)
+        logging.debug('Waitin connection on localhost su porta %s',self.port)
         self.connected = False
         asyncore.loop()
  
