@@ -127,7 +127,7 @@ aml = float(296.1046 + 477198.8491 * T + 0.009192 * T * T)
 aml = ridgrd(aml)
 lnal = float(259.1833 -1934.1420 * T + 0.002078 * T * T) 
 print ("Longitudine del nodo ascendente della Luna Omega= " + str(lnal))
-lnal = 173.8103
+#lnal = 173.8103
 lnal = ridgrd(lnal)
 e = float(0.01675104 - 0.0000418 * T - 0.000000126 * T * T)
 m = float(3.07234 + 0.00186 * T)
@@ -185,7 +185,7 @@ arm = input('Inserisci AR: +mm --> ')
 ars = input('Inserisci AR: +ss --> ')
 ar = (float(arh) + float(arm)/60 + float(ars)/3600)
 ################### da commentare
-#ar = 40.687
+#ar = 13.420
 ################
 print ("AR = " + str(ar))
 
