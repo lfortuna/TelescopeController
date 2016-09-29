@@ -290,9 +290,14 @@ Hs = ( p - Hm )*60
 print ("Angolo Orario= " + str(Hh) +"h " +str(Hm) + "m "+str(Hs))
 
 Azi = np.arctan((np.sin(np.radians(H*15)))/(np.cos(np.radians(H*15))*np.sin(np.radians(la))-np.tan(np.radians(de))*np.cos(np.radians(la))))
+den = np.cos(np.radians(H*15))*np.sin(np.radians(la))-np.tan(np.radians(de))*np.cos(np.radians(la))
+if den < 0:
+	fattore = 180
+else:
+	fattore = 0
 alt = np.arcsin(np.sin(np.radians(de))*np.sin(np.radians(la))+np.cos(np.radians(de))*np.cos(np.radians(la))*np.cos(np.radians(H*15)))
 
-Azimut = float(np.degrees(Azi))+180
+Azimut = float(np.degrees(Azi))+180+fattore
 Altezza = float(np.degrees(alt))
 
 print ("Azimut - altezza --> " + str(Azimut) + " " + str(Altezza))
