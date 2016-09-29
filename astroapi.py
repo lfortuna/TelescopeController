@@ -3,12 +3,13 @@
 import math as m
 import numpy as np 
 import datetime
+import json
 
 def ridgrd(gradi):
 	return(gradi - 360*int(gradi/360))
 
 def posizione(aretta,declinazione,longitudine,latitudine,legale):
-	
+
 	anno = str('{:%Y}'.format(datetime.datetime.utcnow()))
 	mese = str('{:%m}'.format(datetime.datetime.utcnow()))
 	giorno = str('{:%d}'.format(datetime.datetime.utcnow()))
@@ -152,5 +153,8 @@ def posizione(aretta,declinazione,longitudine,latitudine,legale):
 
 	Azimut = float(np.degrees(Azi))+180+fattore
 	Altezza = float(np.degrees(alt))
-
-	return Azimut,Altezza
+	
+	#Crea Json
+	res=({u"TSL": TSL, u"AR": ar, u"DE": de, u"Az": Azimut, u"h": Altezza})
+	#print(json.dumps(res, indent=4))
+	return res

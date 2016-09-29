@@ -1,26 +1,36 @@
 import Tkinter as tk
+import datetime
+from astroapi import posizione
 
-class Application(tk.Frame):
-	def __init__(self, master=None):
-		tk.Frame.__init__(self, master)
-		self.grid(sticky=tk.N+tk.S+tk.E+tk.W)
-		self.createWidgets()
-	def createWidgets(self):
-		top=self.winfo_toplevel()
-		top.rowconfigure(0, weight=1)
-		top.columnconfigure(0, weight=1)
-		self.rowconfigure(0, weight=1)
-		self.columnconfigure(0, weight=1)
-		self.quitButton = tk.Button(self, text='Quit', command=self.quit)
-		self.quitButton.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
-		self.Label1 = tk.Label(self, bg='white', text='Time UTC = ')
-		self.Label1.grid()
-		self.Text1 = tk.Text(self, bg='white', state=tk.NORMAL)
-		self.Text1.grid()
-		Text2 = tk.Canvas(self)
-		id = Text2.create_text(10,20,text='112:3443')
-		self.Text2.grid()
-		
-app = Application()
-app.master.title('Astro GUI by Lauro Fortuna')
-app.mainloop()
+
+def counter_label(label,label1,label2):
+  def count():
+	global data
+	data = datetime.datetime.utcnow()
+	label.config(text="Tempo UTC "+ str(data))
+	res = posizione(14.261,19.172,12.452,41.922,1)
+	TSL = res["TSL"]
+	Azi = res["Az"]
+	Alt = res["h"]
+	h=int(TSL)
+	m=int((TSL - h) *60)
+	s=60 * ((TSL-h)*60-m)
+	label1.config(text=str("Tempo Siderale Apparente" + str(h) +"h "+ str(m) +"m " + str(s) +"s"))
+	label2.config(text=str("Az/H " + str(Azi) +" "+ str(Alt) +" "))
+	label.after(1000, count)
+  count()
+ 
+ 
+root = tk.Tk()
+root.title("Counting Seconds")
+label = tk.Label(root, fg="black")
+label.pack()
+label1 = tk.Label(root, fg="red")
+label1.pack()
+label2 = tk.Label(root, fg="blue")
+label2.pack()
+counter_label(label,label1,label2)
+
+button = tk.Button(root, text='Stop', width=25, command=root.destroy)
+button.pack()
+root.mainloop()
